@@ -52,7 +52,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
         disabled={pending && props.type === 'submit'}
       >
-        {pending && props.type === 'submit' ? <Loader className="animate-spin" /> : props.children}
+        {pending && props.type === 'submit' ? (
+          <Loader size={16} className="animate-spin" />
+        ) : (
+          props.children
+        )}
       </Comp>
     )
   }
