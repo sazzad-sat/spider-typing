@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import { IBM_Plex_Sans } from 'next/font/google'
 import './globals.css'
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={fontSans.className}>{children}</body>
+        <body className={fontSans.className}>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </ClerkProvider>
   )
