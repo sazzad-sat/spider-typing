@@ -1,7 +1,7 @@
-import dotenv from 'dotenv'
+import { loadEnvConfig } from '@next/env'
 import type { Config } from 'drizzle-kit'
 
-dotenv.config({ path: '.env.local', override: true })
+loadEnvConfig(process.cwd(), process.env.NODE_ENV !== 'production')
 
 export default {
   schema: './src/db/schema',
