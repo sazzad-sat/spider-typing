@@ -1,0 +1,46 @@
+import PreviousPerformance from '@/components/typing-performance/PreviousPerformance'
+import TodaysPerformance from '@/components/typing-performance/TodaysPerformance'
+import { UserButton } from '@clerk/nextjs'
+
+export default function StudentPage() {
+  return (
+    <main className="bg-background">
+      <div className="container px-6 pb-12 mt-6 max-w-screen-md">
+        <PageHeader />
+
+        <PageContent />
+      </div>
+    </main>
+  )
+}
+
+function PageHeader() {
+  return (
+    <header className="flex items-center justify-between pb-2 border-b border-neutral-300">
+      <h1 className="text-4xl font-bold">
+        <span className="text-primary">SPIDY</span> Typing
+      </h1>
+
+      <UserButton
+        appearance={{
+          elements: {
+            userButtonAvatarBox: {
+              height: '2.5rem',
+              width: '2.5rem',
+            },
+          },
+        }}
+      />
+    </header>
+  )
+}
+
+function PageContent() {
+  return (
+    <div className="mt-8">
+      <TodaysPerformance />
+
+      <PreviousPerformance />
+    </div>
+  )
+}
