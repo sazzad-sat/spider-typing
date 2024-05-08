@@ -15,6 +15,9 @@ import { keyboardKeys } from '@/db/schema/enums'
 import { addTypingPerformance as createTypingPerformance } from './actions'
 import { useFormState } from 'react-dom'
 import { useEffect } from 'react'
+import { todayPerformances } from './store'
+import { TypingPerformance } from './model'
+import { useSignals } from '@preact/signals-react/runtime'
 
 const formSchema = z.object({
   practiceDate: z.date({
@@ -38,13 +41,22 @@ export default function AddPerformance() {
     },
   })
 
-  const [state, formAction] = useFormState(createTypingPerformance, { error: '' })
+  const problemKeys = keyboardKeys.enumValues.map((k) => k.toUpperCase())
+
+  const [state, formAction] = useFormState(createTypingPerformance, { data: undefined, error: '' })
 
   useEffect(() => {
     if (state?.error) form.setError('root', { message: state?.error })
-  })
+    if (state?.data) {
+      const { data } = state
 
-  const problemKeys = keyboardKeys.enumValues.map((k) => k.toUpperCase())
+      todayPerformances.value = todayPerformances.value.concat(new TypingPerformance(data))
+
+      form.reset()
+    }
+  }, [state])
+
+  useSignals()
 
   return (
     <div className="bg-white p-8 mt-4 shadow rounded-lg">
